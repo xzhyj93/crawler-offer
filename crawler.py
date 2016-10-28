@@ -1,8 +1,10 @@
 #coding=utf-8
-# 这个爬虫是为了爬一个大神写的2017年offer内容的信息，顺便练一下写爬虫
+# 这个爬虫是为了爬一个大神写的2017年offer内容的信息，顺便学一下写爬虫
 # 原信息网址： http://www.offershow.online:8000/index/
+
 import urllib
 import re
+#首先下载安装以下三个包
 import xlrd                         # http://pypi.python.org/pypi/xlrd
 import xlwt                         # http://pypi.python.org/pypi/xlwt
 from xlutils.copy import copy       # http://pypi.python.org/pypi/xlutils
