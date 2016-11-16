@@ -20,6 +20,7 @@ def getHtml(url):
 def getHref(html):
     reg = re.compile(r'href="\/offerdetail\/\d+"')
     match = reg.findall(html);
+
     return match
 
 # 定义一个全局变量，为了记录excel文档里存到了第几行
@@ -48,26 +49,27 @@ def saveToExcel(data):
 # 解析每条信息页面的内容，保存到数据中，存储进excel中
 def getItem(item):
     html = getHtml("http://www.offershow.online:8000/"+item)
-    reg = re.compile(r'class="ui-block-b".*?\<\/button');
+    reg = re.compile(r'class="ui-block-b"[\s\S]*?\<\/p');
     match = reg.findall(html)
     data = ['']*8
     i = 0
-    data[0] = item[12:-1]
+    data[0] = item[12:-1]       #序号
     print(item + " begin...")
-    for i in range(1,7):
+    for i in range(1,8):
         it = match[i-1]
         index = it.find('data-theme')
-        data[i] = (it[index+15:-8])
-        i = i+1
-    reg = re.compile(r'textarea([\s\S]*)?textarea')
-    match = reg.findall(html)
-    data[i] = match[0][28:-2]
+        data[i] = (it[index+15:-3])
+        #print("i=%d; data[i]=%s"%(i,data[i]))
+
+    # reg = re.compile(r'textarea([\s\S]*)?textarea')
+    # match = reg.findall(html)
+    # data[i] = match[0][28:-2]
     saveToExcel(data)
     print(item + " down.")
 
 if __name__ == "__main__":
     #
-    html = getHtml("http://www.offershow.online:8000/right/3")
+    html = getHtml("http://www.offershow.online:8000/sort/1")
     html = getHref(html)
 
     for item in html:
